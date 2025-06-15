@@ -38,3 +38,11 @@ results/
 *.png
 *.jpg
 *.mp4
+# Ignore all trained model .zip files
+*.zip
+
+# Ignore Windows 'Zone.Identifier' alternate data stream files
+*:Zone.Identifier
+
+# Ignore TensorBoard log directories by name
+her_fetch_tensorboard/
