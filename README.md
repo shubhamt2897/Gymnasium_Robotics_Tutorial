@@ -77,7 +77,7 @@ env.close()
 *   Project initialized.
 *   Basic dependencies identified.
 *   Focusing on setting up the environment and initial training/evaluation scripts.
-*   Currently exploring [mention specific environment or task if you have one, e.g., "FetchPickAndPlace-v3"].
+*   Currently exploring ["FetchPickAndPlace-v3", "FetchSlide"and MaMuJoCo env].
 
 ## Next Steps / To-Do
 
