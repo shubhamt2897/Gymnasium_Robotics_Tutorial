@@ -1,0 +1,26 @@
+In research and industry, you don't always train every model from scratch. It's often more efficient to use a model that has been professionally trained by others and shared with the community. This saves an enormous amount of time and computational resources.
+
+Let's start our next lesson on that.
+
+## Installation
+We need a new library, huggingface_sb3, to easily download pre-trained models from the Hugging Face Hub, which is a central repository for sharing ML models.
+
+Run this command in your local WSL terminal:
+
+Bash
+
+pip install huggingface-sb3
+## Environment Information
+We are still using the FetchPickAndPlace-v3 environment. This allows us to directly compare the behavior of a professionally trained agent to our earlier attempts.
+
+## Lesson Goal
+The objective is to download a pre-trained, high-performance agent from the Hugging Face Model Hub and evaluate its performance in our local environment. This will allow us to see what a fully trained, successful agent looks like without needing to train it ourselves.
+
+## Achieving the Goal
+We will use the huggingface_sb3 library, which integrates stable-baselines3 with the Hugging Face Hub. The process is simple:
+
+Identify the correct pre-trained model on the Hub. For our case, a great one is araffin/her-FetchPickAndPlace-v3, trained by one of the lead developers of Stable-Baselines3.
+Use the load_from_hub function to automatically download the model's .zip file.
+Load the downloaded model into our evaluation script just as we did before.
+## Coding
+Here is the complete script to download and evaluate the pre-trained agent. You can save this as a new file, for example, evaluate_pretrained.py.
