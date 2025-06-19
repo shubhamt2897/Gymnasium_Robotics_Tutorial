@@ -1,0 +1,56 @@
+## A Complete Lecture on Hyperparameter Tuning
+What ARE Hyperparameters?
+It's critical to distinguish between Parameters and Hyperparameters.
+
+Parameters: These are the values the model learns during training. For us, this means the millions of weights inside the Actor and Critic neural networks. The agent finds these values itself through trial and error.
+Hyperparameters: These are the high-level "settings," "dials," or "knobs" of the learning algorithm that we, the engineers, must set before training begins. They control how the agent learns. The default values provided by libraries like stable-baselines3 are a good starting point, but rarely optimal for a specific, new problem.
+The Most Important Hyperparameters for Training
+For algorithms like DDPG, SAC, and TD3, here are the key dials you can turn:
+
++-----------------+------------------------------------------+-------------------------------------------------------------+
+| Hyperparameter  | What it Controls                         | Intuition & Analogy                                         |
++-----------------+------------------------------------------+-------------------------------------------------------------+
+| learning_rate   | The size of the update step for the      | Analogy: The size of your footsteps. Too large, and         |
+|                 | neural networks after each batch of      | you'll constantly overshoot your goal. Too small, and       |
+|                 | experiences.                             | it will take forever to get there.                          |
++-----------------+------------------------------------------+-------------------------------------------------------------+
+| gamma           | The "discount factor." How much the      | Analogy: Financial planning. A gamma of 0.99 means the      |
+|                 | agent values future rewards compared to  | agent is a long-term planner, valuing future rewards        |
+|                 | immediate ones.                          | highly. A gamma of 0.9 means it's more focused on short-    |
+|                 |                                          | term gains.                                                 |
++-----------------+------------------------------------------+-------------------------------------------------------------+
+| buffer_size     | The size of the replay buffer; how many  | Analogy: The size of your library. A huge library has       |
+|                 | past experiences the agent can remember. | diverse information but might contain outdated books. A     |
+|                 |                                          | small library is fresh but lacks diversity.                 |
++-----------------+------------------------------------------+-------------------------------------------------------------+
+| batch_size      | The number of experiences sampled from   | Analogy: The size of a study group. A large batch gives a   |
+|                 | the buffer for each learning update.     | very stable, "averaged" learning signal but takes longer    |
+|                 |                                          | to process. A small batch is fast but the signal can be     |
+|                 |                                          | noisy.                                                      |
++-----------------+------------------------------------------+-------------------------------------------------------------+
+| net_arch        | The architecture of the neural networks  | Analogy: The complexity of the brain. A simple              |
+|                 | (the Actor and Critic's "brain           | architecture like (2 layers with 64 neurons each) learns    |
+|                 | structure").                             | fast but might not be smart enough. A complex one can       |
+|                 |                                          | learn more difficult tasks but is slower to train.          |
++-----------------+------------------------------------------+-------------------------------------------------------------+
+| tau             | (For DDPG/SAC/TD3) The "soft update"     | Controls how slowly the stable "target" networks are        |
+|                 | coefficient for the target networks.     | updated towards the main networks. A small tau (e.g.,       |
+|                 |                                          | 0.005) provides more stable training.                       |
++-----------------+------------------------------------------+-------------------------------------------------------------+
+| ent_coef        | (SAC only) The "entropy coefficient."    | Controls the trade-off between exploiting known good        |
+|                 | How much the agent is rewarded for       | actions and exploring new, random ones.                     |
+|                 | exploration.                             |                                                             |
++-----------------+------------------------------------------+-------------------------------------------------------------+
+
+
+How Do We Tune Them? (The Methods)
+Manually trying different combinations is slow and inefficient. In practice, we use automated methods:
+
+Grid Search: You define a small set of values for each hyperparameter (e.g., learning_rate = [0.01, 0.001, 0.0001]). The computer then exhaustively trains a model for every single possible combination. This is simple but computationally very expensive.
+Random Search: You define a range or distribution for each hyperparameter. The computer then randomly samples combinations from these ranges. This is often more effective than Grid Search for the same computational budget.
+Bayesian Optimization: This is the smartest method. It intelligently builds a model of which hyperparameters seem to work best and uses that model to choose the next set of values to try. It focuses on promising areas of the hyperparameter space.
+The Tools for the Job
+Professionals use specialized libraries for this process. Two of the most popular are:
+
+Optuna: A modern, easy-to-use optimization framework.
+Ray Tune: A powerful library for large-scale, distributed hyperparameter tuning.
